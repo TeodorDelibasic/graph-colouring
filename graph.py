@@ -3,9 +3,10 @@ from my_error import MyError
 
 class Graph:
 
-    # { vertex_number: [color, adjacency_list] }
+    # { vertex_number: (color, adjacency_list) }
     def __init__(self):
         self.vertices = {}
+        self.colouring_algorithm = None
 
     def add_vertex(self, vertex):
         if vertex in self.vertices:
@@ -28,9 +29,23 @@ class Graph:
             raise MyError("Vertices don't exist in the graph.")
         return vertex2 in self.vertices[vertex1][1]
 
+    def set_graph_colouring_algorithm(self, colouring_algorithm):
+        self.colouring_algorithm = colouring_algorithm
+
     def reset_colors(self):
         for v in self.vertices.values():
             v[0] = -1
 
+    def colour(self):
+        self.reset_colors()
+        self.colouring_algorithm.colour_graph(self)
+
+        print(f"Graph coloured with {self.colouring_algorithm}")
+        print(f"Chromatic number = {self.get_chromatic_number()}")
+        print("\n".join(f"{vertex} -> {colour}" for vertex, [colour, _] in self.vertices.items()))
+
+    def get_chromatic_number(self):
+        return len({colour for colour, _ in self.vertices.values()})
+
     def __str__(self):
-        return "\n".join(f"{k} ({v[0]}) -> {v[1]}" for k, v in self.vertices.items())
+        return "\n".join(f"{vertex} ({props[0]}) -> {props[1]}" for vertex, props in self.vertices.items())
