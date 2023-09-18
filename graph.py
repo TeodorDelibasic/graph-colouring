@@ -36,9 +36,16 @@ class Graph:
         for v in self.vertices.values():
             v[0] = -1
 
+    def check_colouring(self):
+        for vertex, [vertex_colour, neighbours] in self.vertices.items():
+            for neighbour in neighbours:
+                if vertex_colour == self.vertices[neighbour][0]:
+                    raise MyError(f"Same color for neighbours {vertex} and {neighbour}")
+
     def colour(self):
         self.reset_colors()
         self.colouring_algorithm.colour_graph(self)
+        self.check_colouring()
 
         print(f"Graph coloured with {self.colouring_algorithm}")
         print(f"Chromatic number = {self.get_chromatic_number()}")
