@@ -10,7 +10,9 @@ class BacktrackingColouringAlgorithm(AbstractColouringAlgorithm):
         return True
 
     def colour_graph(self, graph):
-        self.colour_graph_util(graph, 0, len(graph.vertices))
+        for number_of_colors in range(1, len(graph.vertices) + 1):
+            if self.colour_graph_util(graph, 0, number_of_colors):
+                break
 
     def colour_graph_util(self, graph, index, n):
         if index == len(graph.vertices):
