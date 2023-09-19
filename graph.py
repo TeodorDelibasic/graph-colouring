@@ -45,11 +45,12 @@ class Graph:
     def colour(self):
         self.reset_colors()
         self.colouring_algorithm.colour_graph(self)
-        self.check_colouring()
 
         print(f"Graph coloured with {self.colouring_algorithm}")
         print(f"Chromatic number = {self.get_chromatic_number()}")
         print("\n".join(f"{vertex} -> {colour}" for vertex, [colour, _] in self.vertices.items()))
+
+        self.check_colouring()
 
     def get_chromatic_number(self):
         return len({colour for colour, _ in self.vertices.values()})
