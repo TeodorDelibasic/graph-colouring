@@ -29,6 +29,14 @@ class Graph:
             raise MyError("Vertices don't exist in the graph.")
         return vertex2 in self.vertices[vertex1][1]
 
+    def get_vertex_degree(self, vertex):
+        return len(self.vertices[vertex][1])
+
+    def get_vertex_saturation_degree(self, vertex):
+        return len(set(self.vertices[neighbour][0]
+                       for neighbour in self.vertices[vertex][1]
+                       if self.vertices[neighbour][0] != -1))
+
     def set_graph_colouring_algorithm(self, colouring_algorithm):
         self.colouring_algorithm = colouring_algorithm
 

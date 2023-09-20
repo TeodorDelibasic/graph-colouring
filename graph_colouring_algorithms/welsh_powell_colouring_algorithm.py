@@ -6,7 +6,7 @@ class WelshPowellColouringAlgorithm(AbstractColouringAlgorithm):
     def colour_graph(self, graph):
         colour = 0
         sorted_by_degree = sorted([vertex for vertex in graph.vertices.keys()],
-                                  key=lambda x: len(graph.vertices[x][1]),
+                                  key=lambda x: graph.get_vertex_degree(x),
                                   reverse=True)
 
         for i in range(len(sorted_by_degree)):
