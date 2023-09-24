@@ -1,3 +1,4 @@
+import time
 from my_error import MyError
 
 
@@ -52,15 +53,20 @@ class Graph:
 
     def colour(self):
         self.reset_colors()
-        self.colouring_algorithm.colour_graph(self)
 
-        print(f"Graph coloured with {self.colouring_algorithm}")
-        print(f"Chromatic number = {self.get_chromatic_number()}")
-        print("\n".join(f"{vertex} -> {colour}" for vertex, [colour, _] in self.vertices.items()))
+        start_time = time.perf_counter()
+        self.colouring_algorithm.colour_graph(self)
+        end_time = time.perf_counter()
+
+        # print(f"Time taken: {end_time - start_time}")
+        # print(f"Graph coloured with {self.colouring_algorithm} using {self.get_number_of_colours()} colors.")
+        # print("\n".join(f"{vertex} -> {colour}" for vertex, [colour, _] in self.vertices.items()))
 
         self.check_colouring()
 
-    def get_chromatic_number(self):
+        return end_time - start_time
+
+    def get_number_of_colours(self):
         return len({colour for colour, _ in self.vertices.values()})
 
     def __str__(self):
