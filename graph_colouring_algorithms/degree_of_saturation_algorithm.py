@@ -1,16 +1,10 @@
 from graph_colouring_algorithms.abstract_colouring_algorithm import AbstractColouringAlgorithm
 import heapq
 
-class DSaturColouringAlgorithm(AbstractColouringAlgorithm):
-    
-    def __init__(self):
-        self.sorted_by_degree = None
 
-    def select_vertex(self, graph, index):
-        pass
+class DSaturColouringAlgorithm(AbstractColouringAlgorithm):
 
     def colour_graph(self, graph):
-        used_colors = len(graph.vertices) * [False]
         pq = [(-graph.get_vertex_degree(v), 0, v) for v in graph.vertices.keys()]
         heapq.heapify(pq)
 
