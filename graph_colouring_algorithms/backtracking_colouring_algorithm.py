@@ -12,7 +12,8 @@ class BacktrackingColouringAlgorithm(AbstractColouringAlgorithm):
     def colour_graph(self, graph):
         for number_of_colors in range(1, len(graph.vertices) + 1):
             if self.colour_graph_util(graph, 0, number_of_colors):
-                break
+                return
+            graph.reset_colors()
 
     def colour_graph_util(self, graph, index, n):
         if index == len(graph.vertices):
@@ -22,13 +23,13 @@ class BacktrackingColouringAlgorithm(AbstractColouringAlgorithm):
         properties = graph.vertices[vertex]
 
         for colour in range(n):
-            if self.is_safe(graph, vertex, colour):
-                properties[0] = colour
+            if not self.is_safe(graph, vertex, colour):
+                continue
 
-                if self.colour_graph_util(graph, index + 1, n):
-                    return True
-
-                properties[0] = -1
+            properties[0] = colour
+            if self.colour_graph_util(graph, index + 1, n):
+                return True
+            properties[0] = -1
 
         return False
 
