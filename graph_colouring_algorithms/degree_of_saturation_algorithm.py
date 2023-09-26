@@ -5,7 +5,7 @@ import heapq
 class DSaturColouringAlgorithm(AbstractColouringAlgorithm):
 
     def colour_graph(self, graph):
-        pq = [(-graph.get_vertex_degree(v), 0, v) for v in graph.vertices.keys()]
+        pq = [(0, -graph.get_vertex_degree(v), v) for v in graph.vertices.keys()]
         heapq.heapify(pq)
 
         while pq:
@@ -24,8 +24,8 @@ class DSaturColouringAlgorithm(AbstractColouringAlgorithm):
 
             for neighbour in graph.vertices[vertex][1]:
                 if graph.vertices[neighbour][0] != -1:
-                    heapq.heappush(pq, (-graph.get_vertex_degree(neighbour),
-                                        -graph.get_vertex_saturation_degree(neighbour),
+                    heapq.heappush(pq, (-graph.get_vertex_saturation_degree(neighbour),
+                                        -graph.get_vertex_degree(neighbour),
                                         neighbour))
 
     def __str__(self):
