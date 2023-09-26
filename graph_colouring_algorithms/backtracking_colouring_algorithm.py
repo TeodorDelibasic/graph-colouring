@@ -22,6 +22,9 @@ class BacktrackingColouringAlgorithm(AbstractColouringAlgorithm):
         vertex = list(graph.vertices.keys())[index]
         properties = graph.vertices[vertex]
 
+        if properties[0] != -1:
+            return self.colour_graph_util(graph, index + 1, n)
+
         for colour in range(n):
             if not self.is_safe(graph, vertex, colour):
                 continue
