@@ -7,13 +7,15 @@ class ForwardCheckingAlgorithm(AbstractColouringAlgorithm):
         for neighbour in graph.vertices[vertex][1]:
             if colour == graph.vertices[neighbour][0]:
                 return False
-            if colour in available_colours[neighbour] and len(available_colours[neighbour]) == 1:
+            if colour in available_colours[neighbour] and \
+                    len(available_colours[neighbour]) == 1:
                 return False
         return True
 
     def colour_graph(self, graph):
         for number_of_colors in range(1, len(graph.vertices) + 1):
-            available_colours = {vertex: set(range(number_of_colors)) for vertex in graph.vertices}
+            available_colours = {vertex: set(range(number_of_colors))
+                                 for vertex in graph.vertices}
             if self.colour_graph_util(graph, 0, number_of_colors, available_colours):
                 return
             graph.reset_colors()
@@ -22,9 +24,11 @@ class ForwardCheckingAlgorithm(AbstractColouringAlgorithm):
         if index == len(graph.vertices):
             return True
 
-        vertex = min([v for v in available_colours.keys() if graph.vertices[v][0] == -1],
+        vertex = min([v for v in available_colours.keys()
+                      if graph.vertices[v][0] == -1],
                      key=lambda v: (len(available_colours[v]),
-                                    -sum(1 for x in graph.vertices[v][1] if graph.vertices[x][0] == -1)))
+                                    -sum(1 for x in graph.vertices[v][1]
+                                         if graph.vertices[x][0] == -1)))
 
         properties = graph.vertices[vertex]
 
@@ -32,12 +36,15 @@ class ForwardCheckingAlgorithm(AbstractColouringAlgorithm):
             properties[0] = available_colours[vertex].pop()
             return True
 
-        ordered_colours = sorted([colour for colour in available_colours[vertex]],
+        ordered_colours = sorted([colour for colour
+                                  in available_colours[vertex]],
                                  key=lambda c: sum(1 for x in graph.vertices[vertex][1]
-                                                   if graph.vertices[x][0] == -1 and c in graph.vertices[x][1]))
+                                                   if graph.vertices[x][0] == -1 and
+                                                   c in graph.vertices[x][1]))
 
         for colour in ordered_colours:
-            if colour not in available_colours[vertex] or not self.is_safe(graph, vertex, colour, available_colours):
+            if colour not in available_colours[vertex] or \
+                    not self.is_safe(graph, vertex, colour, available_colours):
                 continue
 
             properties[0] = colour

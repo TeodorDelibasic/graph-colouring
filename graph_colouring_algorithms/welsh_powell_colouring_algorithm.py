@@ -15,7 +15,8 @@ class WelshPowellColouringAlgorithm(AbstractColouringAlgorithm):
                 properties[0] = colour
                 adjacent = properties[1].copy()
                 for j in range(i + 1, len(sorted_by_degree)):
-                    if graph.vertices[sorted_by_degree[j]][0] == -1 and sorted_by_degree[j] not in adjacent:
+                    if graph.vertices[sorted_by_degree[j]][0] == -1 and \
+                            sorted_by_degree[j] not in adjacent:
                         graph.vertices[sorted_by_degree[j]][0] = colour
                         adjacent = adjacent.union(graph.vertices[sorted_by_degree[j]][1])
                 colour += 1

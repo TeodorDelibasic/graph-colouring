@@ -10,7 +10,9 @@ class GreedyColouringAlgorithm(AbstractColouringAlgorithm):
             for adjacent in vertex_properties[1]:
                 if graph.vertices[adjacent][0] in available_colours:
                     available_colours.remove(graph.vertices[adjacent][0])
-            vertex_properties[0] = available_colours.pop() if len(available_colours) > 0 else len(colours)
+            vertex_properties[0] = available_colours.pop() \
+                if len(available_colours) > 0 \
+                else len(colours)
             colours.add(vertex_properties[0])
 
     def __str__(self):

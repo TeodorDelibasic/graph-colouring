@@ -18,7 +18,7 @@ class Graph:
         if vertex1 not in self.vertices or vertex2 not in self.vertices:
             raise MyError("Vertices don't exist in the graph.")
         if vertex1 in self.vertices[vertex2][1] or vertex2 in self.vertices[vertex1][1]:
-            raise MyError("Edge already exists.")
+            raise MyError(f"Edge already exists. {vertex1} - {vertex2}")
         self.vertices[vertex1][1].add(vertex2)
         self.vertices[vertex2][1].add(vertex1)
 
@@ -59,8 +59,10 @@ class Graph:
         end_time = time.perf_counter()
 
         # print(f"Time taken: {end_time - start_time}")
-        # print(f"Graph coloured with {self.colouring_algorithm} using {self.get_number_of_colours()} colors.")
-        # print("\n".join(f"{vertex} -> {colour}" for vertex, [colour, _] in self.vertices.items()))
+        # print(f"Graph coloured with {self.colouring_algorithm}"
+        #       f"using {self.get_number_of_colours()} colors.")
+        # print("\n".join(f"{vertex} -> {colour}"
+        #                 for vertex, [colour, _] in self.vertices.items()))
 
         self.check_colouring()
 
